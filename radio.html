@@ -509,6 +509,296 @@ footer {
    MOBILE
 ================================================= */
 
+
+/* =================================================
+   DAILY RECORD ATMOSPHERE
+================================================= */
+
+body {
+
+    --song-glow: rgba(188, 145, 91, .16);
+
+    background:
+        radial-gradient(
+            circle at 50% 42%,
+            var(--song-glow),
+            transparent 34%
+        ),
+        #0b0b0b;
+
+}
+
+
+.radio {
+
+    position: relative;
+
+    isolation: isolate;
+
+    overflow: hidden;
+
+}
+
+
+.radio::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -2;
+
+    pointer-events: none;
+
+    opacity: .18;
+
+    background-image:
+        radial-gradient(
+            rgba(255,255,255,.35) .6px,
+            transparent .6px
+        );
+
+    background-size: 4px 4px;
+
+    animation: filmGrain .18s steps(2) infinite;
+
+}
+
+
+.radio::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 620px;
+
+    height: 620px;
+
+    left: 50%;
+
+    top: 52%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: -1;
+
+    pointer-events: none;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(181,164,134,.10),
+            transparent 67%
+        );
+
+    filter: blur(25px);
+
+}
+
+
+@keyframes filmGrain {
+
+    0% {
+        transform: translate(0, 0);
+    }
+
+    25% {
+        transform: translate(-1%, 1%);
+    }
+
+    50% {
+        transform: translate(1%, -1%);
+    }
+
+    75% {
+        transform: translate(1%, 1%);
+    }
+
+    100% {
+        transform: translate(-1%, -1%);
+    }
+
+}
+
+
+.song-kicker {
+
+    margin-bottom: 12px;
+
+    color: #777;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+}
+
+
+.song-title {
+
+    font-size: clamp(
+        22px,
+        3vw,
+        32px
+    );
+
+    letter-spacing: -1px;
+
+}
+
+
+.song-note {
+
+    margin-top: 15px;
+
+    color: #555;
+
+    font-size: 11px;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    letter-spacing: .5px;
+
+}
+
+
+.vinyl-container {
+
+    position: relative;
+
+}
+
+
+.vinyl-container::before,
+.vinyl-container::after {
+
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+}
+
+
+.vinyl-container::before {
+
+    width: 390px;
+
+    height: 390px;
+
+    border:
+        1px solid rgba(181,164,134,.10);
+
+}
+
+
+.vinyl-container::after {
+
+    width: 420px;
+
+    height: 420px;
+
+    border:
+        1px solid rgba(255,255,255,.035);
+
+    animation:
+        pulseRing 4s ease-in-out infinite;
+
+}
+
+
+@keyframes pulseRing {
+
+    0%,
+    100% {
+
+        transform: scale(.98);
+
+        opacity: .35;
+
+    }
+
+    50% {
+
+        transform: scale(1.03);
+
+        opacity: .8;
+
+    }
+
+}
+
+
+.vinyl.playing {
+
+    animation:
+        spin 3s linear infinite,
+        vinylGlow 2.8s ease-in-out infinite;
+
+}
+
+
+@keyframes vinylGlow {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 0 0 5px #111,
+            0 0 55px rgba(181,164,134,.08),
+            0 35px 80px rgba(0,0,0,.72);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 0 0 5px #111,
+            0 0 95px rgba(181,164,134,.20),
+            0 35px 80px rgba(0,0,0,.72);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .vinyl-container::before {
+
+        width: 285px;
+
+        height: 285px;
+
+    }
+
+
+    .vinyl-container::after {
+
+        width: 310px;
+
+        height: 310px;
+
+    }
+
+}
+
+
 @media (max-width: 600px) {
 
     header {
@@ -601,18 +891,18 @@ footer {
 
 <main class="radio">
 
-    <div class="eyebrow">
-        01 / Deluxe Radio
+    <div class="eyebrow" id="era">
+        A SONG FROM ANOTHER TIME
     </div>
 
 
-    <h1>
-        Stay for<br>the music.
+    <h1 id="radioHeading">
+        HAM TERE<br> PYAAR ME
     </h1>
 
 
-    <p class="subtitle">
-        Your journey doesn't need a destination.
+    <p class="subtitle" id="mood">
+        ROMANCE / NOSTALGIA
     </p>
 
 
@@ -641,6 +931,10 @@ footer {
 
     <div class="song">
 
+        <div class="song-kicker">
+            TODAY'S RECORD
+        </div>
+
         <div
             class="song-title"
             id="songTitle"
@@ -653,7 +947,15 @@ footer {
             class="song-artist"
             id="songArtist"
         >
-            lata ji
+            Lata Ji
+        </div>
+
+
+        <div
+            class="song-note"
+            id="songNote"
+        >
+            Today's record. Tomorrow, another one.
         </div>
 
 
@@ -708,10 +1010,19 @@ const song = {
         "Ham tere pyaar me",
 
     artist:
-        "lata Ji",
+        "Lata Ji",
 
     videoId:
-        "Dvng8ZqJQb8"
+        "Dvng8ZqJQb8",
+
+    era:
+        "A SONG FROM ANOTHER TIME",
+
+    mood:
+        "ROMANCE / NOSTALGIA",
+
+    note:
+        "Today's record. Tomorrow, another one."
 
 };
 
@@ -734,6 +1045,18 @@ const vinyl =
 
 const status =
     document.getElementById("status");
+
+const radioHeading =
+    document.getElementById("radioHeading");
+
+const era =
+    document.getElementById("era");
+
+const mood =
+    document.getElementById("mood");
+
+const songNote =
+    document.getElementById("songNote");
 
 
 /* =================================================
@@ -792,6 +1115,43 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady() {
 
     playerReady = true;
+
+    /*
+       The visual identity of Radio belongs
+       to today's record.
+    */
+
+    songTitle.textContent =
+        song.title;
+
+    songArtist.textContent =
+        song.artist;
+
+    const titleWords =
+        song.title
+            .toUpperCase()
+            .split(" ");
+
+    const midpoint =
+        Math.ceil(titleWords.length / 2);
+
+    radioHeading.innerHTML =
+        titleWords
+            .slice(0, midpoint)
+            .join(" ") +
+        "<br>" +
+        titleWords
+            .slice(midpoint)
+            .join(" ");
+
+    era.textContent =
+        song.era;
+
+    mood.textContent =
+        song.mood;
+
+    songNote.textContent =
+        song.note;
 
     /*
        The user arrived here by clicking

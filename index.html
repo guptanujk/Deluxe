@@ -23,7 +23,161 @@
 /* =================================================
    FONTS
 ================================================= */
+/* =================================================
+   FLOATING RADIO BUTTON
+================================================= */
 
+.radio-float {
+
+    position: fixed;
+
+    right: 28px;
+
+    bottom: 28px;
+
+    z-index: 999;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 10px 14px 10px 11px;
+
+    color: var(--text);
+
+    background:
+        rgba(21,20,19,.82);
+
+    border:
+        1px solid rgba(245,242,234,.18);
+
+    border-radius: 999px;
+
+    backdrop-filter: blur(14px);
+
+    text-decoration: none;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        background .3s ease;
+
+}
+
+
+.radio-float:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        var(--text);
+
+    color:
+        var(--bg);
+
+    border-color:
+        var(--text);
+
+}
+
+
+/* RADIO DOT */
+
+.radio-dot {
+
+    position: relative;
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background:
+        var(--accent);
+
+}
+
+
+/* subtle pulse */
+
+.radio-dot::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -4px;
+
+    border:
+        1px solid var(--accent);
+
+    border-radius: 50%;
+
+    animation:
+        radioPulse 2s ease-out infinite;
+
+}
+
+
+@keyframes radioPulse {
+
+    0% {
+
+        transform: scale(.7);
+
+        opacity: .7;
+
+    }
+
+    70% {
+
+        transform: scale(1.5);
+
+        opacity: 0;
+
+    }
+
+    100% {
+
+        transform: scale(1.5);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* MOBILE */
+
+@media(max-width: 700px) {
+
+    .radio-float {
+
+        right: 16px;
+
+        bottom: 16px;
+
+        padding:
+            9px 12px 9px 10px;
+
+        font-size: 8px;
+
+    }
+
+}
 @import url(
     'https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap'
 );
@@ -524,7 +678,7 @@ nav a:hover {
         url("assets/caravan.png");
 
 }
-.deluxe-preview {
+/* .deluxe-preview {
 
     background-image:
 
@@ -538,7 +692,7 @@ nav a:hover {
 
         url("assets/deluxeradio.png");
 
-}
+} */
 
 /* =================================================
    CARD TOP PROTECTION
@@ -749,7 +903,7 @@ nav a:hover {
 /* =================================================
    RADIO CARD
 ================================================= */
-
+/* 
 .card-wide {
 
     grid-column: span 2;
@@ -777,7 +931,7 @@ nav a:hover {
 
     background-position: center;
 
-}
+} */
 
 
 /* =================================================
@@ -884,7 +1038,7 @@ nav a:hover {
 }
 
 
-.submit-arrow {
+/* .submit-arrow {
 
     font-family: Inter, sans-serif;
 
@@ -892,7 +1046,7 @@ nav a:hover {
 
     line-height: 1;
 
-}
+} */
 
 
 /* =================================================
@@ -1485,7 +1639,7 @@ footer {
         <!-- =================================================
              005 — DELUXE RADIO
         ================================================= -->
-
+<!-- 
         <a
             class="card card-wide"
             href="radio.html"
@@ -1507,14 +1661,14 @@ footer {
 
                 <div class="card-tag">
 
-                    24 / 7
+                    TODAY'S SOUND
 
                 </div>
 
 
                 <h3>
 
-                    DELUXE RADIO
+                    RADIO
 
                 </h3>
 
@@ -1527,7 +1681,7 @@ footer {
 
                 </p>
 
-            </div>
+            </div> -->
 
 
             <div class="enter" aria-hidden="true">
@@ -1572,7 +1726,7 @@ footer {
             rel="noopener noreferrer"
         >
             <span>Submit your website</span>
-            <span class="submit-arrow">↗</span>
+            <!-- <span class="submit-arrow">↗</span> -->
         </a>
 
     </div>
@@ -1609,5 +1763,21 @@ footer {
 
 </footer>
 </body>
+<a
+    class="radio-float"
+    href="radio.html"
+    aria-label="Open Deluxe Radio"
+>
+
+    <span
+        class="radio-dot"
+        aria-hidden="true"
+    ></span>
+
+    <span>
+        RADIO
+    </span>
+
+</a>
 
 </html>

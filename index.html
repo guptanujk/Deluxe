@@ -898,65 +898,25 @@ nav a:hover {
         translate(-50%, -50%);
 
 }
-
-
 /* =================================================
    PLAYER
 ================================================= */
 
 .player {
-
     max-width: 600px;
-
     margin: auto;
-
 }
-
 
 .song-title {
-
     font-size: 18px;
-
     font-weight: 600;
-
 }
-
 
 .song-artist {
-
     color: var(--muted);
-
     font-size: 12px;
-
     margin-top: 8px;
-
 }
-
-
-.progress-container {
-
-    margin-top: 35px;
-
-    height: 3px;
-
-    background: #292725;
-
-    cursor: pointer;
-
-}
-
-
-.progress {
-
-    width: 0%;
-
-    height: 100%;
-
-    background:
-        var(--accent);
-
-}
-
 
 .controls {
 
@@ -1016,107 +976,6 @@ nav a:hover {
 
 }
 
-
-/* =================================================
-   SONG LIST
-================================================= */
-
-.song-list {
-
-    max-width: 700px;
-
-    margin: 60px auto 0;
-
-    text-align: left;
-
-}
-
-
-.song {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 18px 0;
-
-    border-bottom:
-        1px solid var(--border);
-
-    cursor: pointer;
-
-    transition: .2s;
-
-}
-
-
-.song:hover {
-
-    padding-left: 10px;
-
-}
-
-
-.song.active {
-
-    color: var(--accent);
-
-}
-
-
-.song-left {
-
-    display: flex;
-
-    gap: 18px;
-
-    align-items: center;
-
-}
-
-
-.song-number {
-
-    color: #555;
-
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 11px;
-
-}
-
-
-.song-name {
-
-    font-size: 14px;
-
-}
-
-
-.song-artist-small {
-
-    font-size: 11px;
-
-    color: #666;
-
-    margin-top: 4px;
-
-}
-
-
-.song-time {
-
-    color: #555;
-
-    font-family:
-        "DM Mono", monospace;
-
-    font-size: 10px;
-
-}
 
 
 /* =================================================
@@ -1769,6 +1628,18 @@ footer {
 
         </div>
 
+        <div
+            id="radioStatus"
+            style="
+                margin-top: 14px;
+                min-height: 18px;
+                font-family: 'DM Mono', monospace;
+                font-size: 10px;
+                letter-spacing: 1px;
+                color: var(--muted);
+            "
+        ></div>
+
 
 
         <div
@@ -1825,15 +1696,6 @@ footer {
         </div>
 
     </div>
-
-
-
-    <div
-        class="song-list"
-        id="songList"
-    ></div>
-
-
 </section>
 
 
@@ -1869,54 +1731,65 @@ footer {
 
 
 </footer>
+<div
+    id="youtubePlayer"
+    style="
+        position:absolute;
+        width:1px;
+        height:1px;
+        overflow:hidden;
+        opacity:0;
+        pointer-events:none;
+    "
+></div>
 
+<div
+    id="youtubePlayer"
+    style="
+        position:absolute;
+        width:1px;
+        height:1px;
+        overflow:hidden;
+        opacity:0;
+        pointer-events:none;
+    "
+></div>
 
-
-<audio id="audio"></audio>
-
-
+<script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
 
-
 /* =================================================
-   SONG DATA
+   DELUXE RADIO — YOUTUBE
 ================================================= */
 
 const songs = [
 
     {
-        title: "Mujhse Mohabbat Ka",
-        artist: "Deluxe Radio",
-        url: "songs/song1.mp3"
+      
+        title: "The Scientist",
+        artist: "Cold Play",
+        videos: [
+            "vA8E-okpbHY"
+        ]
     },
 
     {
-        title: "Tumsa Koi Pyaara",
-        artist: "Deluxe Radio",
-        url: "songs/song2.mp3"
-    },
-
-    {
-        title: "Pal Pal Dil Ke Paas",
-        artist: "Deluxe Radio",
-        url: "songs/song3.mp3"
-    },
-
-    {
-        title: "Aap Ki Aankhon Mein",
-        artist: "Deluxe Radio",
-        url: "songs/song4.mp3"
+        title: "Jeeta Tha Jiske Liye",
+        artist: "Kumar Sanu, Alka Yagnik",
+        videos: [
+            "fa5Yzxdh8e4"
+        ]
     }
 
 ];
 
 
 let currentSong = 0;
+let youtubePlayer = null;
+let radioStarted = false;
+let pendingRadioStart = false;
 
-
-const audio =
-    document.getElementById("audio");
 
 const vinyl =
     document.getElementById("vinyl");
@@ -1930,26 +1803,128 @@ const songTitle =
 const songArtist =
     document.getElementById("songArtist");
 
-const progress =
-    document.getElementById("progress");
-
-const songList =
-    document.getElementById("songList");
+const radioStatus =
+    document.getElementById("radioStatus");
 
 
 /* =================================================
-   LOAD SONG
+   STATUS
 ================================================= */
 
-function loadSong(index) {
+function setRadioStatus(message) {
 
-    currentSong = index;
+    if (radioStatus) {
 
-    const song =
-        songs[currentSong];
+        radioStatus.textContent =
+            message;
 
-    audio.src =
-        song.url;
+    }
+
+}
+
+
+/* =================================================
+   RANDOM VIDEO FROM A SONG
+================================================= */
+
+function getVideoId(song) {
+
+    if (
+        !song ||
+        !song.videos ||
+        !song.videos.length
+    ) {
+
+        return null;
+
+    }
+
+
+    return song.videos[
+        Math.floor(
+            Math.random() *
+            song.videos.length
+        )
+    ];
+
+}
+
+
+/* =================================================
+   YOUTUBE API READY
+================================================= */
+
+function onYouTubeIframeAPIReady() {
+
+    youtubePlayer =
+        new YT.Player(
+            "youtubePlayer",
+            {
+
+                height: "1",
+
+                width: "1",
+
+                playerVars: {
+
+                    controls: 0,
+
+                    modestbranding: 1,
+
+                    rel: 0,
+
+                    playsinline: 1
+
+                },
+
+                events: {
+
+                    onReady:
+                        onYouTubeReady,
+
+                    onStateChange:
+                        onRadioStateChange,
+
+                    onError:
+                        onRadioError
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =================================================
+   YOUTUBE READY
+================================================= */
+
+function onYouTubeReady() {
+
+    setRadioStatus("");
+
+    /*
+       If the user clicked DELUXE RADIO before the
+       YouTube player finished loading, start it now.
+    */
+
+    if (pendingRadioStart) {
+
+        pendingRadioStart = false;
+
+        startRandomSong();
+
+    }
+
+}
+
+
+/* =================================================
+   UPDATE CURRENT SONG
+================================================= */
+
+function updateSongDisplay(song) {
 
     songTitle.textContent =
         song.title;
@@ -1957,7 +1932,83 @@ function loadSong(index) {
     songArtist.textContent =
         song.artist;
 
-    renderSongs();
+}
+
+
+/* =================================================
+   LOAD SONG
+================================================= */
+
+function loadSong(
+    index,
+    autoplay = true
+) {
+
+    if (!songs.length) {
+
+        setRadioStatus(
+            "NO MUSIC AVAILABLE"
+        );
+
+        return;
+
+    }
+
+
+    currentSong =
+        (index + songs.length)
+        % songs.length;
+
+
+    const song =
+        songs[currentSong];
+
+
+    const videoId =
+        getVideoId(song);
+
+
+    updateSongDisplay(song);
+
+
+    if (!videoId) {
+
+        setRadioStatus(
+            "THIS TRACK IS UNAVAILABLE"
+        );
+
+        return;
+
+    }
+
+
+    if (!youtubePlayer) {
+
+        pendingRadioStart =
+            autoplay;
+
+        setRadioStatus(
+            "RADIO IS LOADING…"
+        );
+
+        return;
+
+    }
+
+
+    setRadioStatus("");
+
+
+    youtubePlayer.loadVideoById(
+        videoId
+    );
+
+
+    if (autoplay) {
+
+        youtubePlayer.playVideo();
+
+    }
 
 }
 
@@ -1968,29 +2019,35 @@ function loadSong(index) {
 
 function togglePlay() {
 
-    if (audio.paused) {
+    if (!youtubePlayer) {
 
-        audio.play();
-
-        vinyl.classList.add(
-            "playing"
+        setRadioStatus(
+            "RADIO IS LOADING…"
         );
 
-        playButton.textContent =
-            "Ⅱ";
+        return;
+
+    }
+
+
+    const state =
+        youtubePlayer.getPlayerState();
+
+
+    if (
+        state ===
+        YT.PlayerState.PLAYING
+    ) {
+
+        youtubePlayer.pauseVideo();
 
     }
 
     else {
 
-        audio.pause();
+        setRadioStatus("");
 
-        vinyl.classList.remove(
-            "playing"
-        );
-
-        playButton.textContent =
-            "▶";
+        youtubePlayer.playVideo();
 
     }
 
@@ -2006,23 +2063,19 @@ function nextSong() {
     currentSong++;
 
     if (
-        currentSong >= songs.length
+        currentSong >=
+        songs.length
     ) {
 
         currentSong = 0;
 
     }
 
-    loadSong(currentSong);
 
-    audio.play();
-
-    vinyl.classList.add(
-        "playing"
+    loadSong(
+        currentSong,
+        true
     );
-
-    playButton.textContent =
-        "Ⅱ";
 
 }
 
@@ -2044,178 +2097,194 @@ function previousSong() {
 
     }
 
-    loadSong(currentSong);
 
-    audio.play();
-
-    vinyl.classList.add(
-        "playing"
+    loadSong(
+        currentSong,
+        true
     );
-
-    playButton.textContent =
-        "Ⅱ";
 
 }
 
 
 /* =================================================
-   AUTO NEXT
+   RANDOM FIRST SONG
 ================================================= */
 
-audio.addEventListener(
-    "ended",
-    () => {
+function startRandomSong() {
 
-        nextSong();
-
-    }
-);
-
-
-/* =================================================
-   PROGRESS
-================================================= */
-
-audio.addEventListener(
-    "timeupdate",
-    () => {
-
-        if (!audio.duration) {
-
-            return;
-
-        }
-
-        const percentage =
-            (
-                audio.currentTime /
-                audio.duration
-            ) * 100;
-
-        progress.style.width =
-            percentage + "%";
-
-    }
-);
-
-
-/* =================================================
-   SEEK
-================================================= */
-
-function seek(event) {
-
-    if (!audio.duration) {
+    if (radioStarted) {
 
         return;
 
     }
 
-    const rect =
-        event.currentTarget
-            .getBoundingClientRect();
 
-    const clickPosition =
-        event.clientX -
-        rect.left;
+    if (!youtubePlayer) {
 
-    const percentage =
-        clickPosition /
-        rect.width;
+        pendingRadioStart = true;
 
-    audio.currentTime =
-        percentage *
-        audio.duration;
+        setRadioStatus(
+            "RADIO IS LOADING…"
+        );
 
-}
+        return;
+
+    }
 
 
-/* =================================================
-   SONG LIST
-================================================= */
+    radioStarted = true;
 
-function renderSongs() {
 
-    songList.innerHTML = "";
+    let randomIndex =
+        Math.floor(
+            Math.random() *
+            songs.length
+        );
 
-    songs.forEach(
-        (song, index) => {
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+    /*
+       If there is more than one song,
+       avoid immediately repeating the
+       currently selected one.
+    */
 
-            div.className =
-                "song " +
-                (
-                    index === currentSong
-                        ? "active"
-                        : ""
-                );
+    if (
+        songs.length > 1 &&
+        randomIndex === currentSong
+    ) {
 
-            div.innerHTML = `
+        randomIndex =
+            (randomIndex + 1)
+            % songs.length;
 
-                <div class="song-left">
+    }
 
-                    <div class="song-number">
 
-                        ${String(index + 1).padStart(2, "0")}
+    currentSong =
+        randomIndex;
 
-                    </div>
 
-                    <div>
-
-                        <div class="song-name">
-
-                            ${song.title}
-
-                        </div>
-
-                        <div class="song-artist-small">
-
-                            ${song.artist}
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="song-time">
-
-                    ♪
-
-                </div>
-
-            `;
-
-            div.onclick =
-                () => {
-
-                    loadSong(index);
-
-                    audio.play();
-
-                    vinyl.classList.add(
-                        "playing"
-                    );
-
-                    playButton.textContent =
-                        "Ⅱ";
-
-                };
-
-            songList.appendChild(div);
-
-        }
+    loadSong(
+        currentSong,
+        true
     );
 
 }
 
 
 /* =================================================
-   RADIO SCROLL
+   YOUTUBE STATE
+================================================= */
+
+function onRadioStateChange(event) {
+
+    if (
+        event.data ===
+        YT.PlayerState.PLAYING
+    ) {
+
+        vinyl.classList.add(
+            "playing"
+        );
+
+        playButton.textContent =
+            "Ⅱ";
+
+        setRadioStatus("");
+
+    }
+
+
+    else if (
+        event.data ===
+        YT.PlayerState.PAUSED
+    ) {
+
+        vinyl.classList.remove(
+            "playing"
+        );
+
+        playButton.textContent =
+            "▶";
+
+    }
+
+
+    else if (
+        event.data ===
+        YT.PlayerState.BUFFERING
+    ) {
+
+        setRadioStatus(
+            "TUNING IN…"
+        );
+
+    }
+
+
+    else if (
+        event.data ===
+        YT.PlayerState.ENDED
+    ) {
+
+        vinyl.classList.remove(
+            "playing"
+        );
+
+        playButton.textContent =
+            "▶";
+
+        nextSong();
+
+    }
+
+}
+
+
+/* =================================================
+   YOUTUBE EMBEDDING ERRORS
+================================================= */
+
+function onRadioError(event) {
+
+    vinyl.classList.remove(
+        "playing"
+    );
+
+    playButton.textContent =
+        "▶";
+
+
+    const errors = {
+
+        2:
+            "INVALID YOUTUBE VIDEO",
+
+        5:
+            "THIS VIDEO CANNOT BE PLAYED",
+
+        100:
+            "VIDEO NOT FOUND OR REMOVED",
+
+        101:
+            "THIS VIDEO DOES NOT ALLOW EMBEDDING",
+
+        150:
+            "THIS VIDEO DOES NOT ALLOW EMBEDDING"
+
+    };
+
+
+    setRadioStatus(
+        errors[event.data] ||
+        "THIS SONG CANNOT BE PLAYED HERE"
+    );
+
+}
+
+
+/* =================================================
+   RADIO CARD CLICK
 ================================================= */
 
 function scrollToMusic() {
@@ -2223,21 +2292,52 @@ function scrollToMusic() {
     document
         .getElementById("music")
         .scrollIntoView({
+
             behavior: "smooth"
+
         });
+
+
+    /*
+       The click itself is what initiates the
+       radio. Do not wait before trying to play.
+    */
+
+    if (youtubePlayer) {
+
+        startRandomSong();
+
+    }
+
+    else {
+
+        pendingRadioStart = true;
+
+        setRadioStatus(
+            "RADIO IS LOADING…"
+        );
+
+    }
 
 }
 
 
 /* =================================================
-   INITIALIZE
+   INITIAL DISPLAY
 ================================================= */
 
-loadSong(0);
+songTitle.textContent =
+    "DELUXE RADIO";
+
+songArtist.textContent =
+    "Press play or enter Radio";
+
+setRadioStatus("");
 
 </script>
-
 
 </body>
 
 </html>
+
+       

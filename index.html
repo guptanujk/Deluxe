@@ -794,6 +794,20 @@ nav a:hover {
 
 .vinyl {
 
+    appearance: none;
+
+    border: none;
+
+    padding: 0;
+
+    outline: none;
+
+    font: inherit;
+
+    color: inherit;
+
+    cursor: pointer;
+
     width: 250px;
 
     height: 250px;
@@ -916,64 +930,6 @@ nav a:hover {
     color: var(--muted);
     font-size: 12px;
     margin-top: 8px;
-}
-
-.controls {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 30px;
-
-    margin-top: 30px;
-
-}
-
-
-.control {
-
-    background: none;
-
-    border: none;
-
-    color: var(--text);
-
-    cursor: pointer;
-
-    font-size: 18px;
-
-}
-
-
-.play-button {
-
-    width: 55px;
-
-    height: 55px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid var(--accent);
-
-    background:
-        var(--accent);
-
-    color: #111;
-
-    font-size: 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    cursor: pointer;
-
 }
 
 
@@ -1597,10 +1553,13 @@ footer {
 
     <div class="vinyl-container">
 
-        <div
+        <button
             class="vinyl"
             id="vinyl"
-        ></div>
+            onclick="togglePlay()"
+            aria-label="Play or pause Deluxe Radio"
+            aria-pressed="false"
+        ></button>
 
     </div>
 
@@ -1651,47 +1610,6 @@ footer {
                 class="progress"
                 id="progress"
             ></div>
-
-        </div>
-
-
-
-        <div class="controls">
-
-
-            <button
-                class="control"
-                onclick="previousSong()"
-                aria-label="Previous song"
-            >
-
-                ⏮
-
-            </button>
-
-
-            <button
-                class="play-button"
-                onclick="togglePlay()"
-                id="playButton"
-                aria-label="Play or pause"
-            >
-
-                ▶
-
-            </button>
-
-
-            <button
-                class="control"
-                onclick="nextSong()"
-                aria-label="Next song"
-            >
-
-                ⏭
-
-            </button>
-
 
         </div>
 
@@ -1774,13 +1692,13 @@ const songs = [
         ]
     },
 
-    {
-        title: "Jeeta Tha Jiske Liye",
-        artist: "Kumar Sanu, Alka Yagnik",
-        videos: [
-            "fa5Yzxdh8e4"
-        ]
-    }
+    // {
+    //     title: "Jeeta Tha Jiske Liye",
+    //     artist: "Kumar Sanu, Alka Yagnik",
+    //     videos: [
+    //         "fa5Yzxdh8e4"
+    //     ]
+    // }
 
 ];
 
@@ -1793,10 +1711,6 @@ let pendingRadioStart = false;
 
 const vinyl =
     document.getElementById("vinyl");
-
-const playButton =
-    document.getElementById("playButton");
-
 const songTitle =
     document.getElementById("songTitle");
 
@@ -2187,8 +2101,10 @@ function onRadioStateChange(event) {
             "playing"
         );
 
-        playButton.textContent =
-            "Ⅱ";
+        vinyl.setAttribute(
+            "aria-pressed",
+            "true"
+        );
 
         setRadioStatus("");
 
@@ -2204,8 +2120,10 @@ function onRadioStateChange(event) {
             "playing"
         );
 
-        playButton.textContent =
-            "▶";
+        vinyl.setAttribute(
+            "aria-pressed",
+            "false"
+        );
 
     }
 
@@ -2231,8 +2149,10 @@ function onRadioStateChange(event) {
             "playing"
         );
 
-        playButton.textContent =
-            "▶";
+        vinyl.setAttribute(
+            "aria-pressed",
+            "false"
+        );
 
         nextSong();
 
@@ -2250,9 +2170,6 @@ function onRadioError(event) {
     vinyl.classList.remove(
         "playing"
     );
-
-    playButton.textContent =
-        "▶";
 
 
     const errors = {

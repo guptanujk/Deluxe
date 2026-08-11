@@ -141,6 +141,7 @@ header {
 }
 
 
+
 nav {
 
     display: flex;
@@ -663,52 +664,84 @@ nav a:hover {
    ENTER BUTTON
 ================================================= */
 
-.enter {
-
+ .enter {
     position: absolute;
-
     right: 30px;
-
     bottom: 30px;
 
-    z-index: 4;
-
     width: 50px;
-
     height: 50px;
 
-    border:
-        1px solid
-        rgba(245,242,234,.40);
-
+    border: 1px solid rgba(255,255,255,.25);
     border-radius: 50%;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     transition: .3s;
+}
 
-    background:
-        rgba(0,0,0,.16);
+.enter::before {
+    content: "";
+    width: 17px;
+    height: 1px;
+    background: currentColor;
+}
 
-    backdrop-filter:
-        blur(5px);
+.enter::after {
+    content: "";
+    width: 7px;
+    height: 7px;
+
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+
+    transform: translateX(-4px) rotate(45deg);
+}
+
+.card:hover .enter {
+    background: white;
+    color: black;
+}
+
+
+/* =================================================
+   CLEAN CARD ARROW
+================================================= */
+
+.arrow-line {
+
+    position: absolute;
+
+    width: 16px;
+
+    height: 1.5px;
+
+    background: currentColor;
+
+    transform:
+        translate(-2px, 2px)
+        rotate(-45deg);
+
+    transform-origin: right center;
 
 }
 
 
-.card:hover .enter {
+.arrow-head {
 
-    background:
-        var(--accent);
+    position: absolute;
 
-    color: #111;
+    width: 7px;
 
-    border-color:
-        var(--accent);
+    height: 7px;
+
+    border-top:
+        1.5px solid currentColor;
+
+    border-right:
+        1.5px solid currentColor;
 
 }
 
@@ -748,8 +781,125 @@ nav a:hover {
 
 
 /* =================================================
+   SUBMIT YOUR WEBSITE
+================================================= */
+
+.submit-section {
+
+    padding:
+        150px 5vw
+        170px;
+
+    border-top:
+        1px solid var(--border);
+
+    text-align: center;
+
+}
+
+
+.submit-section-inner {
+
+    max-width: 800px;
+
+    margin: auto;
+
+}
+
+
+.submit-section h2 {
+
+    font-size: clamp(
+        48px,
+        7vw,
+        95px
+    );
+
+    line-height: .9;
+
+    letter-spacing: -5px;
+
+}
+
+
+.submit-section p {
+
+    max-width: 470px;
+
+    margin: 28px auto 35px;
+
+    color: var(--muted);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+.submit-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    padding:
+        15px 20px
+        15px 22px;
+
+    color: var(--bg);
+
+    background:
+        var(--text);
+
+    text-decoration: none;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    transition:
+        transform .3s ease,
+        background .3s ease;
+
+}
+
+
+.submit-button:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        var(--accent);
+
+}
+
+
+.submit-arrow {
+
+    font-family: Inter, sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1;
+
+}
+
+
+/* =================================================
    FOOTER
 ================================================= */
+
+
 
 footer {
 
@@ -797,16 +947,64 @@ footer {
 
 @media(max-width: 700px) {
 
+    .submit-section {
+
+        padding:
+            100px 20px
+            120px;
+
+    }
+
+
+    .submit-section h2 {
+
+        letter-spacing: -3px;
+
+    }
+
+
+
     header {
 
-        padding: 0 20px;
+        padding: 0 16px;
 
     }
 
 
     nav {
 
-        display: none;
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+    }
+
+
+    nav a {
+
+        font-size: 9px;
+
+        letter-spacing: .8px;
+
+        white-space: nowrap;
+
+    }
+
+
+    .submit-link {
+
+        padding: 7px 10px;
+
+    }
+
+
+    .logo {
+
+        font-size: 20px;
+
+        flex-shrink: 0;
 
     }
 
@@ -1097,10 +1295,8 @@ footer {
             </div>
 
 
-            <div class="enter">
-
-                ↗
-
+            <div class="enter" aria-hidden="true">
+            
             </div>
 
         </a>
@@ -1156,10 +1352,8 @@ footer {
             </div>
 
 
-            <div class="enter">
-
-                ↗
-
+            <div class="enter" aria-hidden="true">
+               
             </div>
 
         </a>
@@ -1216,10 +1410,8 @@ footer {
             </div>
 
 
-            <div class="enter">
-
-                ↗
-
+            <div class="enter" aria-hidden="true">
+             
             </div>
 
         </a>
@@ -1275,10 +1467,8 @@ footer {
             </div>
 
 
-            <div class="enter">
-
-                ↗
-
+            <div class="enter" aria-hidden="true">
+               
             </div>
 
         </a>
@@ -1333,10 +1523,8 @@ footer {
             </div>
 
 
-            <div class="enter">
-
-                ↗
-
+            <div class="enter" aria-hidden="true">
+               
             </div>
 
         </a>
@@ -1346,6 +1534,43 @@ footer {
 
 </section>
 
+
+
+<!-- =================================================
+     SUBMIT YOUR WEBSITE
+================================================= -->
+
+<section class="submit-section">
+
+    <div class="submit-section-inner">
+
+        <div class="eyebrow">
+            02 / Submit
+        </div>
+
+        <h2>
+            Built something<br>
+            worth entering?
+        </h2>
+
+        <p>
+            Send your website to DELUXE.
+            If it belongs here, we'll add it to the collection.
+        </p>
+
+        <a
+            class="submit-button"
+            href="https://forms.gle/WKYwKfeaJ8GmiWxJ8"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <span>Submit your website</span>
+            <span class="submit-arrow">↗</span>
+        </a>
+
+    </div>
+
+</section>
 
 
 <footer id="about">
@@ -1365,17 +1590,12 @@ footer {
         WHO LIKE TO GO SOMEWHERE.
 
     </div>
-    <div>
-
-        contact ig @ fatherfullbehaviour
-
-    </div>
 
 
 
     <div>
 
-        © 2026 DELUXE
+        © 2026 DELUXE Contact @ mrakbg
 
     </div>
 

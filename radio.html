@@ -1079,13 +1079,17 @@ function onYouTubeIframeAPIReady() {
 
                 playerVars: {
 
+                    autoplay: 1,
+
                     controls: 0,
 
                     modestbranding: 1,
 
                     rel: 0,
 
-                    playsinline: 1
+                    playsinline: 1,
+
+                    enablejsapi: 1
 
                 },
 
@@ -1184,10 +1188,6 @@ function startRadio() {
 
     status.textContent = "";
 
-    youtubePlayer.loadVideoById(
-        song.videoId
-    );
-
     youtubePlayer.playVideo();
 
 }
@@ -1204,7 +1204,7 @@ function togglePlay() {
         pendingPlay = true;
 
         status.textContent =
-            "";
+            "STARTING RADIO…";
 
         return;
 

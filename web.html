@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DELUXE — Web</title>
+
+<link rel="icon" type="image/svg+xml"
+href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230d0c0b'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-family='Arial,sans-serif' font-size='68' font-weight='900' fill='%23f5f2ea'%3ED%3C/text%3E%3C/svg%3E">
+
+<style>
+
+@import url(
+'https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap'
+);
+
+:root {
+    --bg: #0d0c0b;
+    --surface: #151413;
+    --text: #f5f2ea;
+    --muted: #88827a;
+    --accent: #b5a486;
+    --border: rgba(245,242,234,.11);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =================================================
+   HEADER
+================================================= */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 76px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5vw;
+
+    background: rgba(13,12,11,.76);
+    backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--accent);
+    font-weight: 400;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: var(--text);
+}
+
+/* =================================================
+   HERO
+================================================= */
+
+.hero {
+    min-height: 72vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 120px 20px 100px;
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(181,164,134,.08),
+            transparent 35%
+        ),
+        var(--bg);
+}
+
+.hero-content {
+    max-width: 1000px;
+}
+
+.eyebrow {
+    font-family: "DM Mono", monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.hero h1 {
+    font-size: clamp(70px, 13vw, 180px);
+    line-height: .8;
+    letter-spacing: -9px;
+    font-weight: 900;
+}
+
+.hero h1 span {
+    display: block;
+    font-weight: 400;
+    font-size: .30em;
+    letter-spacing: 2px;
+    margin-top: 35px;
+    color: var(--muted);
+}
+
+.hero-description {
+    max-width: 500px;
+    margin: 45px auto 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+/* =================================================
+   EXPERIENCES
+================================================= */
+
+.experiences {
+    padding: 80px 5vw 180px;
+    max-width: 1500px;
+    margin: auto;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 45px;
+}
+
+.section-heading h2 {
+    font-size: clamp(36px, 5vw, 70px);
+    letter-spacing: -3px;
+}
+
+.section-heading p {
+    max-width: 300px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 13px;
+}
+
+/* =================================================
+   GRID
+================================================= */
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+/* =================================================
+   CARD
+================================================= */
+
+.card {
+    height: 480px;
+
+    position: relative;
+    overflow: hidden;
+
+    display: block;
+
+    color: inherit;
+    text-decoration: none;
+
+    border: 1px solid var(--border);
+
+    cursor: pointer;
+
+    background: var(--surface);
+
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        border-color .3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(181,164,134,.45);
+}
+
+.card-bg {
+    position: absolute;
+    inset: 0;
+
+    background-size: cover;
+    background-position: center top;
+
+    transform: scale(1);
+
+    transition:
+        transform .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.card:hover .card-bg {
+    transform: scale(1.045);
+}
+
+/* =================================================
+   WEBSITE PREVIEWS
+================================================= */
+
+.salon-preview {
+    background-image:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.88) 0%,
+            rgba(0,0,0,.48) 30%,
+            rgba(0,0,0,.10) 62%,
+            transparent 100%
+        ),
+        url("assets/salon.png");
+}
+
+.bus-preview {
+    background-image:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.88) 0%,
+            rgba(0,0,0,.48) 30%,
+            rgba(0,0,0,.10) 62%,
+            transparent 100%
+        ),
+        url("assets/bus.png");
+}
+
+.horn-preview {
+    background-image:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.88) 0%,
+            rgba(0,0,0,.48) 30%,
+            rgba(0,0,0,.10) 62%,
+            transparent 100%
+        ),
+        url("assets/hornok.png");
+}
+
+.caravan-preview {
+    background-image:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.88) 0%,
+            rgba(0,0,0,.48) 30%,
+            rgba(0,0,0,.10) 62%,
+            transparent 100%
+        ),
+        url("assets/caravan.png");
+}
+
+.naacho-preview {
+    background-image:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.88) 0%,
+            rgba(0,0,0,.48) 30%,
+            rgba(0,0,0,.10) 62%,
+            transparent 100%
+        ),
+        url("assets/naacho.png");
+}
+
+/* =================================================
+   CARD TOP PROTECTION
+================================================= */
+
+.card::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.24),
+            transparent 25%
+        );
+
+    z-index: 1;
+}
+
+/* =================================================
+   CARD NUMBER
+================================================= */
+
+.card-number {
+    position: absolute;
+
+    top: 25px;
+    left: 28px;
+
+    z-index: 3;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 11px;
+
+    color: rgba(245,242,234,.68);
+}
+
+/* =================================================
+   CARD CONTENT
+================================================= */
+
+.card-content {
+    position: absolute;
+
+    left: 30px;
+    right: 30px;
+    bottom: 28px;
+
+    z-index: 3;
+}
+
+.card-tag {
+    font-family: "DM Mono", monospace;
+
+    color: rgba(245,242,234,.67);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    font-size: clamp(40px, 5vw, 70px);
+
+    line-height: .9;
+
+    letter-spacing: -3px;
+
+    text-shadow:
+        0 3px 25px rgba(0,0,0,.45);
+}
+
+.card-description {
+    color: rgba(245,242,234,.70);
+
+    font-size: 13px;
+
+    margin-top: 18px;
+
+    max-width: 350px;
+
+    line-height: 1.5;
+}
+
+/* =================================================
+   ENTER BUTTON
+================================================= */
+
+.enter {
+    position: absolute;
+
+    right: 30px;
+    bottom: 30px;
+
+    width: 50px;
+    height: 50px;
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .3s;
+
+    z-index: 4;
+}
+
+.enter::before {
+    content: "";
+
+    width: 17px;
+    height: 1px;
+
+    background: currentColor;
+}
+
+.enter::after {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+
+    transform: translateX(-4px) rotate(45deg);
+}
+
+.card:hover .enter {
+    background: white;
+    color: black;
+}
+
+/* =================================================
+   BACK BUTTON
+================================================= */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 35px;
+
+    color: var(--muted);
+
+    text-decoration: none;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    transition: .3s;
+}
+
+.back-link:hover {
+    color: var(--text);
+}
+
+/* =================================================
+   FOOTER
+================================================= */
+
+footer {
+    padding: 80px 5vw 140px;
+
+    display: flex;
+    justify-content: space-between;
+
+    color: #555;
+
+    font-size: 11px;
+
+    font-family: "DM Mono", monospace;
+}
+
+.footer-logo {
+    font-size: 30px;
+
+    color: var(--text);
+
+    font-family: Inter, sans-serif;
+
+    font-weight: 900;
+}
+
+.footer-logo::after {
+    content: ".";
+    color: var(--accent);
+}
+
+/* =================================================
+   RADIO FLOAT
+================================================= */
+
+.radio-float {
+    position: fixed;
+
+    right: 28px;
+    bottom: 28px;
+
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 10px 14px 10px 11px;
+
+    color: var(--text);
+
+    background: rgba(21,20,19,.82);
+
+    border: 1px solid rgba(245,242,234,.18);
+
+    border-radius: 999px;
+
+    backdrop-filter: blur(14px);
+
+    text-decoration: none;
+
+    font-family: "DM Mono", monospace;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        background .3s ease;
+}
+
+.radio-float:hover {
+    transform: translateY(-3px);
+
+    background: var(--text);
+
+    color: var(--bg);
+
+    border-color: var(--text);
+}
+
+.radio-dot {
+    position: relative;
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+}
+
+/* =================================================
+   MOBILE
+================================================= */
+
+@media(max-width: 700px) {
+
+    header {
+        padding: 0 16px;
+    }
+
+    nav {
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 9px;
+        letter-spacing: .8px;
+        white-space: nowrap;
+    }
+
+    .logo {
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .hero {
+        min-height: 65vh;
+        padding-bottom: 80px;
+    }
+
+    .hero h1 {
+        letter-spacing: -5px;
+    }
+
+    .experiences {
+        padding: 60px 20px 110px;
+    }
+
+    .section-heading {
+        display: block;
+    }
+
+    .section-heading p {
+        margin-top: 20px;
+    }
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        height: 420px;
+    }
+
+    .card h3 {
+        font-size: 50px;
+    }
+
+    .enter {
+        display: none;
+    }
+
+    footer {
+        display: block;
+    }
+
+    footer div:last-child {
+        margin-top: 20px;
+    }
+
+    .radio-float {
+        right: 16px;
+        bottom: 16px;
+        padding: 9px 12px 9px 10px;
+        font-size: 8px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =================================================
+     HEADER
+================================================= -->
+
+<header>
+
+    <a href="index.html" class="logo"
+       style="color:inherit;text-decoration:none;">
+        DELUXE<span>.</span>
+    </a>
+
+    <nav>
+        <a href="index.html#experiences">Experiences</a>
+
+        <a href="radio.html">
+            Radio
+        </a>
+
+        <a href="index.html#about">
+            About
+        </a>
+
+        <a
+            href="https://forms.gle/WKYwKfeaJ8GmiWxJ8"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Submit
+        </a>
+    </nav>
+
+</header>
+
+
+<!-- =================================================
+     HERO
+================================================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            03 / Web
+        </div>
+
+        <h1>
+            WEB
+
+            <span>
+                Websites worth entering.
+            </span>
+        </h1>
+
+        <p class="hero-description">
+            A collection of websites, digital spaces
+            and interactive experiences worth stepping into.
+        </p>
+
+        <a href="index.html#experiences" class="back-link">
+            ← Back to experiences
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     WEB EXPERIENCES
+================================================= -->
+
+<section class="experiences">
+
+    <div class="section-heading">
+
+        <div>
+
+            <div class="eyebrow">
+                Web / Collection
+            </div>
+
+            <h2>
+                Enter<br>
+                somewhere.
+            </h2>
+
+        </div>
+
+        <p>
+            These experiences were previously
+            part of the main DELUXE collection.
+            They now live together under WEB.
+        </p>
+
+    </div>
+
+
+    <div class="experience-grid">
+
+
+        <!-- =================================================
+             001 — DELUXE SALON
+        ================================================= -->
+
+        <a
+            class="card"
+            href="https://deluxesalon.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="card-bg salon-preview"></div>
+
+            <div class="card-number">
+                001
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-tag">
+                    STYLE / SELF
+                </div>
+
+                <h3>
+                    SALON
+                </h3>
+
+                <p class="card-description">
+                    Take a seat.
+                    Put the music on.
+                    Leave looking different.
+                </p>
+
+            </div>
+
+            <div class="enter" aria-hidden="true"></div>
+
+        </a>
+
+
+        <!-- =================================================
+             002 — BUS DRIVER
+        ================================================= -->
+
+        <a
+            class="card"
+            href="https://busdriver.wtf/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="card-bg bus-preview"></div>
+
+            <div class="card-number">
+                002
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-tag">
+                    BUS / INDIA
+                </div>
+
+                <h3>
+                    BUS DRIVER
+                </h3>
+
+                <p class="card-description">
+                    Take the wheel.
+                    The road is yours.
+                </p>
+
+            </div>
+
+            <div class="enter" aria-hidden="true"></div>
+
+        </a>
+
+
+        <!-- =================================================
+             003 — HORN OK PLEASE
+        ================================================= -->
+
+        <a
+            class="card"
+            href="https://hornokplease.xyz/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="card-bg horn-preview"></div>
+
+            <div class="card-number">
+                003
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-tag">
+                    ROADS / INDIA
+                </div>
+
+                <h3>
+                    HORN OK<br>
+                    PLEASE
+                </h3>
+
+                <p class="card-description">
+                    Indian roads have
+                    their own language.
+                </p>
+
+            </div>
+
+            <div class="enter" aria-hidden="true"></div>
+
+        </a>
+
+
+        <!-- =================================================
+             004 — CARAVAN
+        ================================================= -->
+
+        <a
+            class="card"
+            href="https://caravan.naveengumaste.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="card-bg caravan-preview"></div>
+
+            <div class="card-number">
+                004
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-tag">
+                    TRAVEL / NOSTALGIA
+                </div>
+
+                <h3>
+                    CARAVAN
+                </h3>
+
+                <p class="card-description">
+                    A little journey
+                    through another time.
+                </p>
+
+            </div>
+
+            <div class="enter" aria-hidden="true"></div>
+
+        </a>
+
+
+        <!-- =================================================
+             005 — NAACHO YAAR
+        ================================================= -->
+
+        <a
+            class="card"
+            href="https://www.naacho.xyz/"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+            <div class="card-bg naacho-preview"></div>
+
+            <div class="card-number">
+                005
+            </div>
+
+            <div class="card-content">
+
+                <div class="card-tag">
+                    MULTIPLE EXPERIENCES
+                </div>
+
+                <h3>
+                    NAACHO<br>
+                    YAAR
+                </h3>
+
+                <p class="card-description">
+                    Dance has its own vibe.
+                </p>
+
+            </div>
+
+            <div class="enter" aria-hidden="true"></div>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     FOOTER
+================================================= -->
+
+<footer id="about">
+
+    <div class="footer-logo">
+        DELUXE
+    </div>
+
+    <div>
+        MADE FOR PEOPLE<br>
+        WHO LIKE TO GO SOMEWHERE.
+    </div>
+
+    <div>
+        © 2026 DELUXE<br>
+        Contact @ mrakbg
+    </div>
+
+</footer>
+
+
+<!-- =================================================
+     RADIO
+================================================= -->
+
+<a
+    class="radio-float"
+    href="radio.html"
+    aria-label="Open Deluxe Radio"
+>
+
+    <span
+        class="radio-dot"
+        aria-hidden="true"
+    ></span>
+
+    <span>
+        RADIO
+    </span>
+
+</a>
+
+</body>
+</html>
